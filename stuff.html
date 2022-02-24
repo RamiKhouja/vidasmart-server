@@ -1,0 +1,561 @@
+<div class="full-screen-slider">
+  <div id="banner-slider-demo-14" class="owl-carousel owl-middle-narrow owl-banner-carousel">
+    <div class="item" style="background:url({{media url="wysiwyg/homepage/slider/82_fr_v_pasta.jpg";}}) 20% top no-repeat; background-size:cover; position: relative;">
+      <div class="slide-1 content" data-animation="animated fadeIn" style="position: absolute; top: 35%; width:100%;">
+        <div class="container" style="text-align: left;">
+          <div class="text-content" style="display: inline-block;float:right;padding-left: 40%;">
+            <h3>Our splecialities</h3>
+            <p><span><b>Try the </b><b class="text-large">Pasta</b><b style="text-align:right;">It is <br>excuisit</b></span></p>
+            <a href="#" class="btn" style="vertical-align: top; font-weight: 700;  background-color:#fbbb2e; color:#222;">SHOW ME</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item" style="background:url({{media url="wysiwyg/homepage/slider/40_fr_v_ecole-de-cuisine-mezza-luna.jpg"}}) 71% top no-repeat; background-size:cover; position: relative;">
+      <div class="slide-2 content" data-animation="animated fadeIn" style="position: absolute; top: 35%; width:100%;">
+        <div class="container" style="text-align: left;">
+          <div class="text-content" style="display: inline-block;padding-left: 60%;">
+            <h2>Fashion</h2>
+            <p><span><b>Up to </b><b class="text-large">70%</b><b style="text-align:right;">OFF in the<br>collection</b></span></p>
+            <a href="#" class="btn btn-default" style="vertical-align: top; font-weight: 400;">SHOP NOW</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="item" style="background:url({{media url="wysiwyg/homepage/slider/100_fr_v_all-american.jpg";}}) 20% top no-repeat; background-size:cover; position: relative;">
+      <div class="slide-1 content" data-animation="animated fadeIn" style="position: absolute; top: 35%; width:100%;">
+        <div class="container" style="text-align: left;">
+          <div class="text-content" style="display: inline-block;float:right;padding-left: 40%;">
+            <h3>Exclusive</h3>
+            <p><span><b>All the </b><b class="text-large">American Collection</b></span></p>
+            <a href="#" class="btn" style="vertical-align: top; font-weight: 700;  background-color:#fbbb2e; color:#222;">SHOW ME</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="text/javascript">
+    require([
+      'jquery',
+      'owl.carousel/owl.carousel.min'
+    ], function ($) {
+      var owl_3 = $("#banner-slider-demo-14").owlCarousel({
+        items: 1,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        dots: false,
+        navRewind: true,
+        animateIn: 'fadeIn',
+        animateOut: 'fadeOut',
+        loop: true,
+        nav: false,
+        dots: true,
+        navText: ["<em class='porto-icon-chevron-left'></em>","<em class='porto-icon-chevron-right'></em>"]
+      });
+    });
+  </script>
+</div>
+<div style="background-color:#efefef;">
+  <div class="container">
+    <div class="single-images">
+    <div class="row">
+
+     <div class="col-md-4" style="padding:0; position:relative;">
+        <img src="{{media url="wysiwyg/smartwave/porto/homepage/14/slider/image_link_1.jpg"}}" class="img-responsive" alt="" />
+        <div class="content" style="position:absolute;left:0;top:30%;text-align:left;">
+          <h2 style="font-size:24px;color:#323c54;font-weight:600;margin-bottom: 15px;">Sunglasses</h2>
+          <a class="btn btn-default" href="#">SHOP NOW</a>
+        </div>
+      </div>
+
+      <div class="col-md-4" style="padding:0; position:relative;border-left: solid 1px #d9e0e8;">
+       <img src="{{media url="wysiwyg/homepage/slider/19_v_cafe.jpg"}}" width="399" height="210" alt="" />
+        <div class="content" style="position:absolute;left:0;top:30%;text-align:left;">
+          <h2 style="font-size:24px;color:#FFFFFF;font-weight:600;margin-bottom: 15px;">Coffee Pots</h2>
+          <a class="btn" style="background-color : #FBBB2E; color : #222;" href="#">Shop Now</a>
+        </div>
+      </div>
+
+      <div class="col-md-4" style="padding:0; position:relative;border-left: solid 1px #d9e0e8;border-right: solid 1px #d9e0e8;">
+        <img src="{{media url="wysiwyg/smartwave/porto/homepage/14/slider/image_link_3.jpg"}}" width="399" height="210" alt="" />
+        <div class="content" style="position:absolute; left:0;top:30%;text-align:left;padding-left: 46px;">
+          <h2 style="font-size:24px;color:#323c54;font-weight:600;margin-bottom: 15px;">Woman Bags</h2>
+          <a class="btn btn-default" href="#">SHOP NOW</a>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 style="margin:77px 0 30px 0;font-size:25px;font-weight:700;text-align:center;" class="theme-color">WEEKLY FEATURED PRODUCTS</h2>
+      <div id="featured_product">
+        {{block class="Smartwave\Filterproducts\Block\Home\FeaturedList" name="featured_product" product_count="10" aspect_ratio="1" image_width="300" image_height="300" template="owl_list.phtml"}}
+      </div>
+      <script type="text/javascript">
+        require([
+          'jquery',
+          'owl.carousel/owl.carousel.min'
+        ], function ($) {
+          $("#featured_product .owl-carousel").owlCarousel({
+            autoplay: true,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: true,
+            loop: true,
+            navRewind: true,
+            margin: 30,
+            nav: false,
+            navText: ["<em class='porto-icon-left-open-huge'></em>","<em class='porto-icon-right-open-huge'></em>"],
+            dots: false,
+            responsive: {
+              0: {
+                items:2
+              },
+              768: {
+                items:3
+              },
+              992: {
+                items:4
+              },
+              1200: {
+                items:4
+              }
+            }
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>
+<div id="parallax_01" style="background:url({{media url="wysiwyg/smartwave/porto/homepage/14/slider/parallax_img.jpg"}}) 80% 0 no-repeat fixed; color: #fff; padding: 105px 0px 145px; position: relative;">
+  <div class="overlay overlay-color" style="background-color: #000000; opacity: 0.2; filter: alpha(opacity=2);top:0;"></div>
+  <div class="parallax-slider" style="position: relative; z-index: 3;">
+    <div class="container">
+      <div id="parallax-slider-demo-14" class="owl-carousel owl-theme">
+        <div class="item">
+          <p>Up to <b class="text-large">40%</b> OFF</p>
+          <h2>SPECIAL PROMO</h2>
+          <a href="#" class="btn btn-button">Purchase now</a>
+        </div>
+        <div class="item">
+          <p>Up to <b class="text-large">40%</b> OFF</p>
+          <h2>SPECIAL PROMO</h2>
+          <a href="#" class="btn btn-button">Purchase now</a>
+        </div>
+        <div class="item">
+          <p>Up to <b class="text-large">40%</b> OFF</p>
+          <h2>SPECIAL PROMO</h2>
+          <a href="#" class="btn btn-button">Purchase now</a>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      require([
+        'jquery',
+        'owl.carousel/owl.carousel.min'
+      ], function ($) {
+        var owl_4 = $("#parallax-slider-demo-14").owlCarousel({
+          items: 1,
+          autoplay: true,
+          autoplayTimeout: 5000,
+          autoplayHoverPause: true,
+          dots: true,
+          navRewind: true,
+          animateIn: 'fadeIn',
+          animateOut: 'fadeOut',
+          loop: true,
+          nav: false,
+          navText: ["<em class='porto-icon-chevron-left'></em>","<em class='porto-icon-chevron-right'></em>"]
+        });
+      });
+    </script>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 style="margin:65px 0 30px 0;font-size:25px;font-weight:700;text-align:center;" class="theme-color">NEW ARRIVALS</h2>
+      <div id="latest_product">
+        {{block class="Smartwave\Filterproducts\Block\Home\LatestList" name="latest_product" product_count="10" aspect_ratio="1" image_width="300" image_height="300" template="owl_list.phtml"}}
+      </div>
+      <script type="text/javascript">
+        require([
+          'jquery',
+          'owl.carousel/owl.carousel.min'
+        ], function ($) {
+          $("#latest_product .owl-carousel").owlCarousel({
+            autoplay: true,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: true,
+            loop: true,
+            navRewind: true,
+            margin: 30,
+            nav: false,
+            navText: ["<em class='porto-icon-left-open-huge'></em>","<em class='porto-icon-right-open-huge'></em>"],
+            dots: false,
+            responsive: {
+              0: {
+                items:2
+              },
+              768: {
+                items:3
+              },
+              992: {
+                items:4
+              },
+              1200: {
+                items:4
+              }
+            }
+          });
+        });
+      </script>
+    </div>
+  </div>
+</div>
+<div style="background-color: #efefef; padding: 76px 0 85px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 style="margin:0 0 18px 0;font-size:25px;font-weight:700;text-align:center" class="theme-color a-center">FROM THE BLOG</h2>
+        <div class="owl-top-narrow">
+          <div class="recent-posts">
+            <div id="latest_news" class="owl-carousel owl-theme">
+              <div class="item">
+                <div class="post-image">
+                  <img src="{{media url="wysiwyg/smartwave/porto/blog/01n.jpg"}}" width="225" height="280" alt="">
+                </div>
+                <div class="post-content">
+                  <div class="postTitle">
+                    <h2><a href="#">Post Format – Video</a></h2>
+                  </div>
+                  <div class="post-date">
+                    08-DEC-2016
+                  </div>
+                  <div class="postContent"><p>Lorem Ipsum is simply dummy text the printing and type setting...</p></div>
+                  <a class="read-more" href="#">Read More <i class="porto-icon-right-open"></i></a>
+                </div>
+              </div>
+              <div class="item">
+                <div class="post-image">
+                  <img src="{{media url="wysiwyg/smartwave/porto/blog/02n.jpg"}}" width="225" height="280" alt="">
+                </div>
+                <div class="post-content">
+                  <div class="postTitle">
+                    <h2><a href="#">Post Format – Video</a></h2>
+                  </div>
+                  <div class="post-date">
+                    08-DEC-2016
+                  </div>
+                  <div class="postContent"><p>Lorem Ipsum is simply dummy text the printing and type setting...</p></div>
+                  <a class="read-more" href="#">Read More <i class="porto-icon-right-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+          require([
+            'jquery',
+            'owl.carousel/owl.carousel.min'
+          ], function ($) {
+            var owl_5 = $("#latest_news").owlCarousel({
+              items: 2,
+              autoplay: true,
+              autoplayTimeout: 5000,
+              autoplayHoverPause: true,
+              margin: 20,
+              navRewind: true,
+              animateIn: 'fadeIn',
+              animateOut: 'fadeOut',
+              loop: false,
+              nav: false,
+              dots: false,
+              navText: ["<em class='porto-icon-chevron-left'></em>","<em class='porto-icon-chevron-right'></em>"],
+
+              responsive: {
+                0: {
+                  items:1
+                },
+                768: {
+                  items:2
+                },
+                992: {
+                  items:2
+                },
+                1200: {
+                  items:2
+                }
+              }
+            });
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  #banner-slider-demo-14 .content .text-content h2{
+    font-family:'Oswald';
+    letter-spacing: 0;
+    text-transform:uppercase;
+    font-size: 102px;
+    color:#fff;
+    line-height:1;
+    font-weight: 700;
+    margin:0;
+  }
+#banner-slider-demo-14 .content .text-content h3{
+    font-family:'Oswald';
+    letter-spacing: 0;
+    text-transform:uppercase;
+    font-size: 80px;
+    color:#fff;
+    line-height:1;
+    font-weight: 700;
+    margin:0;
+    text-shadow: 2px 2px 30px #111111;
+  }
+  #banner-slider-demo-14 .content .text-content p span{
+    font-family:'Oswald';
+    font-size:25px;
+    text-transform:uppercase;
+    color: #fff;
+    vertical-align: top;
+    font-weight: 300;
+    text-shadow: 2px 2px 10px #111111;
+  }
+  #banner-slider-demo-14 .content .text-content .text-large{
+    font-family:'Playfair Display';
+    font-weight:700;
+    font-style:italic;
+    line-height:1;
+    font-size:76px;
+    padding: 0 20px;
+    text-shadow: 2px 2px 20px #111111;
+  }
+  #banner-slider-demo-14 .content  .text-content p{
+    margin: 7px 0;
+    text-shadow: 2px 2px 8px #111111;
+  }
+  #banner-slider-demo-14 .content  .text-content a{
+    margin-top: 68px;
+    font-size: 17px;
+    padding: 11px 28px;
+    margin-left: 7px;
+    letter-spacing:0.075em;
+    font-family:'Oswald';
+    background-color: #e1ddc3;
+    color:#61605a;
+    box-shadow: 2px 2px 10px #222222;
+  }
+  #banner-slider-demo-14 .content  .text-content b {
+    display: inline-block;
+    vertical-align:top;
+    font-weight:300;
+  }
+  #banner-slider-demo-14 .owl-controls {
+    bottom: 27px;
+    top: auto;
+    visibility: visible;
+    opacity: 1;
+  }
+  #banner-slider-demo-14 .owl-controls .owl-dots {
+    margin: 0 auto;
+    text-align: right;
+    padding: 0 15px;
+  }
+  #banner-slider-demo-14 .owl-controls .owl-dot span {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #cfcdca ;
+    border-radius: 100%;
+    background: none;
+    margin: 0 4px;
+  }
+  #banner-slider-demo-14 .owl-controls .owl-dot.active span,
+  #banner-slider-demo-14 .owl-controls .owl-dot:hover span{
+    border-color: #fff;
+  }
+  #banner-slider-demo-14 .owl-controls .owl-dot.active span:after,
+  #banner-slider-demo-14 .owl-controls .owl-dot:hover span:after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    width: 6px;
+    border: #fff solid 2px;
+    border-radius: 100%;
+  }
+  .single-images .btn-default{
+    border:1px solid #e1ddc3;
+    padding:10px 28px;
+    color:#61605a;
+    font-family:'Oswald';
+    font-size:14px;
+    letter-spacing:0.05em;
+    background-color:transparent;
+    box-shadow: none;
+  }
+  .parallax-slider {font-family:'Oswald';}
+  .parallax-slider .owl-carousel h2 {font-size:60px;font-weight:700;letter-spacing: 0.075em;margin-bottom:28px;}
+  .parallax-slider .owl-carousel p {font-family:'Oswald';font-size:36px;font-weight:300;text-transform:uppercase;letter-spacing: 0.075em;margin: 0 0 6px;}
+  .parallax-slider .owl-carousel p .text-large {font-size:75px;font-weight:700;letter-spacing: 0;}
+  .parallax-slider .owl-carousel a.btn-button {background-color:#e1ddc3;font-size:15px;color:#61605a;letter-spacing: 0.05em;text-transform:uppercase;padding:15px 22px;}
+   .parallax-slider .owl-controls {
+    margin-top: 25px;
+    position: absolute;
+    width: 100%;
+    bottom: -79px;
+  }
+  .parallax-slider .owl-controls .owl-dot span {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-radius:100%;
+    background: none;
+  }
+  .parallax-slider .owl-controls .owl-dot:hover span,
+  .parallax-slider .owl-controls .owl-dot.active span {background: none !important;}
+  .parallax-slider .owl-controls .owl-dot.active span:after,
+  .parallax-slider .owl-controls .owl-dot:hover span:after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    width: 6px;
+    border: #fff solid 2px;
+    border-radius: 100%;
+  }
+
+  #latest_news .item {
+    position:relative;
+  }
+  #latest_news .post-image {float:left;}
+  #latest_news .post-content {
+    position: relative;
+    top: 30px;
+    left: -5px;
+    background-color: #fff;
+    text-align: left;
+    padding: 40px;
+    margin-left: 200px;
+    min-height: 212px;
+  }
+  #latest_news .post-image{
+    float: left;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  .recent-posts .item .post-image img {
+    border-radius: 0;
+  }
+  #latest_news .postTitle{
+    min-height: auto;
+    margin-bottom: 9px;
+  }
+  #latest_news .postTitle h2{
+    text-transform: uppercase;
+    font-size:18px;
+    font-weight: 600;
+    letter-spacing: -0.001em;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  #latest_news .post-date{
+    display: inline-block;
+    background-color: #e1ddc3;
+    color: #8f8e86;
+    font-size: 14.5px;
+    letter-spacing: 0.1em;
+    font-family: 'Oswald';
+    float: none;
+    text-align: left;
+    padding: 8px;
+    font-weight: 300;
+    margin-bottom: 8px;
+  }
+  #latest_news .postContent {
+    line-height: 25px;
+    font-size: 15px;
+    letter-spacing: 0.03em;
+    padding: 0;
+    margin-bottom: 15px;
+  }
+  #latest_news .read-more {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: #333333;
+  }
+  @media (max-width: 991px){
+    #banner-slider-demo-14 .content .text-content h2{font-size:70px !important;}
+    #banner-slider-demo-14 .content .text-content span {font-size:20px !important;}
+    #banner-slider-demo-14 .content .text-content .text-large{font-size:45px !important;padding: 0 10px;}
+    #banner-slider-demo-14 .content  .text-content a{padding:10px 24px;font-size:13px;margin-top:30px;}
+    #banner-slider-demo-14 .owl-pagination {
+      width: 1140px;
+    }
+  }
+  @media (max-width: 767px) {
+    #banner-slider-demo-14 .content .text-content h2{font-size:50px !important;}
+    #banner-slider-demo-14 .content .text-content span {font-size:15px !important;}
+    #banner-slider-demo-14 .content .text-content .text-large{font-size:30px !important;padding: 0 10px;}
+    #banner-slider-demo-14 .content  .text-content a{padding:10px 20px;font-size:10px;margin-top:20px;}
+    .single-images .col-md-4{border-left-width:0 !important;}
+    .single-images img {width:100%;}
+    .single-images .content{padding-left:46px;}
+    .parallax-slider .owl-carousel h2 {font-size:40px;margin-bottom:28px;}
+    .parallax-slider .owl-carousel p {font-size:16px;margin: 0 0 6px;}
+    .parallax-slider .owl-carousel p .text-large {font-size:55px;}
+    .parallax-slider .owl-carousel a.btn-button {font-size:12px;padding:12px 20px;}
+  }
+  @media (max-width: 480px) {
+    #latest_news .post-image {
+      float: none;
+      margin: 0;
+    }
+    #latest_news .post-content {
+      padding: 30px;
+      margin: 0;
+      left: 0;
+      top: 0;
+      float: left;
+    }
+  }
+  @media (min-width: 768px){
+    #banner-slider-demo-14 .owl-controls .owl-dots {
+      width: 750px;
+    }
+  }
+  @media (min-width: 992px){
+    #banner-slider-demo-14 .owl-controls .owl-dots {
+      width: 970px;
+    }
+  }
+  @media (min-width: 1200px) {
+    #banner-slider-demo-14 .owl-controls .owl-dots {
+      width: 1140px;
+    }
+  }
+  .full-screen-slider, .full-screen-slider .owl-carousel .owl-item .item {
+    max-height: 770px;
+    background-color: #000000;
+  }
+
+
+</style>

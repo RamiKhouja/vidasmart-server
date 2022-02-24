@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Parcelle</title>
+  <% include ../partials/admin/head.ejs %>
+  <!-- Custom styles for this page -->
+  <link href="/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="../../public/admin/css/styles.css" rel="stylesheet">
+  <!-- map css -->
+  <link rel="stylesheet" href="/admin/css/map.css">
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper" class="raw">
+
+    <!-- Sidebar -->
+    <% include ../partials/admin/sidebar.ejs %>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <% include ../partials/admin/navbar.ejs %>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-primary"><b>Parcelles</b></h1>
+            <a href="#" data-toggle="modal" data-target="#newZoneModel" class="d-none d-sm-inline-block btn btn-primary shadow-sm">
+              <i class="fas fa-plus fa-sm"></i> Nouvelle Parcelle</a>
+          </div>
+
+
+        <div class="card shadow mb-4">
+
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Titre</th>
+                    <th>Etat</th>
+                    <th>Mode</th>
+                    <th>Client</th>
+                    <th>Région</th>
+                    <th>Flux</th>
+                    <th>Créé le</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% for (var i = 0; i < data.length; i++) { %>
+                  <tr>
+                    <td><b><%= data[i].designation %></b></td>
+                    <td><b><%= data[i].etatIrrigation[0] %></b></td>
+                    <td><b><%= data[i].modeIrrigation[0] %></b></td>
+                    <td><b><%= data[i].user.username%></b></td>
+                    <td><b><%= data[i].gouvernorat%></b></td>
+                    <!--<td><b><%= data[i].emplacement.latitude%> , <%= data[i].emplacement.longitude%></b></td>-->
+                    <td><b><%= data[i].flux%></b> m<sup>3</sup>/h</td>
+                    <td><b><%= data[i].Created_date.getDate()%>-<%= data[i].Created_date.getMonth()%>-<%= data[i].Created_date.getFullYear()%></b></td>
+                    <td class="raw">
+                      <a class="col-sm-4" href="#" data-toggle="modal" data-target="#newZoneModel"><i class="fas fa-eye fa-sm"></i></a>
+                      <a onclick='doIt("<%= data[i]._id %>","<%= data[i].designation %>",
+                        "<%= data[i].description%>","<%= data[i].modeIrrigation%>",
+                        <%= data[i].flux%>,"<%= data[i].user.username%>","<%= data[i].gouvernorat%>")'
+                         class="col-sm-4 text-dark" href="#" data-toggle="modal" data-target="#updateZoneModal">
+                        <i class="fas fa-pen fa-sm"></i></a>
+                      <a class="col-sm-4 text-danger" href="/a/zone/delete/<%=data[i]._id%>" ><i class="fas fa-trash-alt fa-sm"></i></a>
+
+
+                        <!--data-toggle="modal" data-target="#deleteZoneModel" data-todo='{"id":"<%= data[i]._id %>","todo":"<%= data[i].designation %>"}' -->
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow mb-4">
+          <div class="card-body">
+            <div id="map2" class="image-fluid rounded"></div>
+            <script type="text/javascript">
+
+            var d = <%- datajs %>;
+            var map2;
+            var markersArray= [];
+            function initMap() {
+              //console.log(d);
+
+              var initlatitude  = 36.8190; // postion inital
+              var initlongitude = 10.1658; // postioj initi
+              var latitude  = 34.8922756; // YOUR LATITUDE VALUE
+              var longitude = 10.3135673; // YOUR LONGITUDE VALUE
+
+              var initLatLng = {lat: initlatitude, lng: initlongitude};
+              var myLatLng = {lat: latitude, lng: longitude};
+
+
+              map2 = new google.maps.Map(document.getElementById('map2'), {
+                zoom: 6.7,
+                center: myLatLng, /* honi position tunis*/
+                mapTypeId: 'roadmap'
+              });
+
+              var marker2 = new google.maps.Marker({
+                position: initLatLng,
+                map: map2
+              });
+
+              var infowindow = new google.maps.InfoWindow();
+
+              var marker, i, etat;
+              etat = [];
+
+              for (i = 0; i < d.length; i++) {
+                marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(d[i].emplacement.latitude, d[i].emplacement.longitude),
+                  icon:'/admin/img/marker.png',
+                  map: map2,
+                  title: d[i].designation+' ( '+d[i].user.username+' )'
+                });
+
+                if(d[i].etatIrrigation == 'close')
+                  etat[i] = 'circle_red.png';
+                else if (d[i].etatIrrigation == 'open')
+                  etat[i] = 'circle_green.png';
+
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                  return function() {
+                    infowindow.setContent("<h6 class='text-primary'>"+d[i].designation+"</h6><b> <p> Etat : "+d[i].etatIrrigation+"</p></b>"
+                    +"<img src='/admin/img/"+etat[i]+"' width='15px'/>");
+                    infowindow.open(map2, marker);
+                  }
+                })(marker, i));
+              }
+
+
+              var map = new google.maps.Map(document.getElementById('map'), {
+                center: initLatLng,
+                zoom: 8,
+                disableDoubleClickZoom: true,
+              });
+
+
+              var marker = new google.maps.Marker({
+                position: initLatLng,
+                map: map,
+
+                title: latitude + ', ' + longitude
+              });
+
+              google.maps.event.addListener(map,'dblclick',function(event) {
+
+                  var marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map,
+                    icon:'/admin/img/marker.png',
+                    title: event.latLng.lat()+', '+event.latLng.lng()
+                  });
+                  clearOverlays();
+                  markersArray.push(marker);
+
+                  console.log(markersArray);
+
+                    longitude =event.latLng.lng();
+                    latitude =event.latLng.lat();
+                    document.getElementById("latitude").value = latitude;
+                    document.getElementById("longitude").value = longitude;
+
+              });
+            }
+
+            function clearOverlays() {
+              for (var i = 0; i < markersArray.length; i++ ) {
+                markersArray[i].setMap(null);
+              }
+              markersArray.length = 0;
+            }
+
+            </script>
+          </div>
+        </div>
+
+      </div>
+      </div>
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; VidaSmart 2019</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="border-radius: 7px !important;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  //add zone model
+  <div class="modal fade" id="newZoneModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title" style="color:#FFF;" id="exampleModalLabel">Nouvelle Parcelle</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="color: #FFF;">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="user" name="addZoneForm" method="POST" action="/a/zones/add">
+            <div class="form-group">
+                <input type="text" name="designation" class="form-control"  placeholder="Titre de la parcelle">
+            </div>
+            <div class="form-group">
+              <textarea name="description" class="form-control"  placeholder="Description de la parcelle"></textarea>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-7">
+                <select class="form-control" name="modeIrrigation">
+                  <option value="manual">-- Mode Irrigation --</option>
+                  <option value="manual">Manuel</option>
+                  <option value="automatic">Automatique</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <input type="number" name="flux" class="form-control" id="exampleFirstName" placeholder="Flux">
+              </div>
+              <div class="col-md-1">
+                <b>m<sup>3</sup>/ h</b>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <select class="form-control" name="username">
+                  <option value="">-- Propriétaire --</option>
+                  <% for (var i = 0; i < users_data.length; i++) { %>
+                  <option value="<%=users_data[i].fullName%>"><%=users_data[i].fullName%></option>
+                  <% } %>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <select id="subject" name="gouvernorat" class="form-control">
+                  <option value="na" selected="">-- Choisir Gouvernorat --</option>
+                  <option value="Ariana">Ariana</option>
+                  <option value="Béja">Béja</option>
+                  <option value="Ben Arous">Ben Arous</option>
+                  <option value="Bizerte">Bizerte</option>
+                  <option value="Gabès">Gabès</option>
+                  <option value="Gafsa">Gafsa</option>
+                  <option value="Jendouba">Jendouba</option>
+                  <option value="Kairouan">Kairouan</option>
+                  <option value="Kasserine">Kasserine</option>
+                  <option value="Kébili">Kébili</option>
+                  <option value="Le Kef">Le Kef</option>
+                  <option value="Mahdia">Mahdia</option>
+                  <option value="Manouba">La Manouba</option>
+                  <option value="Médenine">Médenine</option>
+                  <option value="Monastir">Monastir</option>
+                  <option value="Nabeul">Nabeul</option>
+                  <option value="Sfax">Sfax</option>
+                  <option value="Sidi Bouzid">Sidi Bouzid</option>
+                  <option value="Siliana">Siliana</option>
+                  <option value="Sousse">Sousse</option>
+                  <option value="Tataouine">Tataouine</option>
+                  <option value="Tozeur">Tozeur</option>
+                  <option value="Tunis">Tunis</option>
+                  <option value="Zaghouan">Zaghouan</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="map" class="image-fluid rounded"></div>
+            <input type="text" id="latitude" name="latitude" hidden/>
+            <input type="text" id="longitude" name="longitude" hidden/>
+
+            <hr>
+            <div class="text-center">
+              <input type="submit" value="Ajouter Parcelle" class="btn btn-primary btn-user col-md-4">
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<!-- edit zone modal -->
+
+  <div class="modal fade" id="updateZoneModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title" style="color:#FFF;" id="exampleModalLabel">Modifier Parcelle</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="color: #FFF;">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="user" name="addZoneForm" method="POST" action="/a/zone/edit">
+            <input type="text" hidden class="idZone" name="idZone">
+            <div class="form-group">
+                <input type="text" name="designation" class="form-control designation"  placeholder="Titre de la parcelle">
+            </div>
+            <div class="form-group">
+              <textarea name="description" class="form-control description"  placeholder="Description de la parcelle"></textarea>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-7">
+                <select class="form-control modeIrrigation" name="modeIrrigation">
+                  <option value="na">-- Mode Irrigation --</option>
+                  <option value="manual">Manuel</option>
+                  <option value="automatic">Automatique</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <input type="number" name="flux" class="form-control flux" id="exampleFirstName" placeholder="Flux">
+              </div>
+              <div class="col-md-1">
+                <b>m<sup>3</sup>/ h</b>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <select class="form-control" name="username">
+                  <option value="">-- Propriétaire --</option>
+                  <% for (var i = 0; i < users_data.length; i++) { %>
+                  <option value="<%=users_data[i].fullName%>"><%=users_data[i].fullName%></option>
+                  <% } %>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <select id="subject" name="gouvernorat" class="form-control gouvernorat">
+                  <option value="na" selected="">-- Choisir Gouvernorat --</option>
+                  <option value="Ariana">Ariana</option>
+                  <option value="Beja">Béja</option>
+                  <option value="Ben Arous">Ben Arous</option>
+                  <option value="Bizerte">Bizerte</option>
+                  <option value="Gabes">Gabès</option>
+                  <option value="Gafsa">Gafsa</option>
+                  <option value="Jendouba">Jendouba</option>
+                  <option value="Kairouan">Kairouan</option>
+                  <option value="Kasserine">Kasserine</option>
+                  <option value="Kebili">Kébili</option>
+                  <option value="Le Kef">Le Kef</option>
+                  <option value="Mahdia">Mahdia</option>
+                  <option value="Manouba">La Manouba</option>
+                  <option value="Medenine">Médenine</option>
+                  <option value="Monastir">Monastir</option>
+                  <option value="Nabeul">Nabeul</option>
+                  <option value="Sfax">Sfax</option>
+                  <option value="Sidi Bouzid">Sidi Bouzid</option>
+                  <option value="Siliana">Siliana</option>
+                  <option value="Sousse">Sousse</option>
+                  <option value="Tataouine">Tataouine</option>
+                  <option value="Tozeur">Tozeur</option>
+                  <option value="Tunis">Tunis</option>
+                  <option value="Zaghouan">Zaghouan</option>
+                </select>
+              </div>
+            </div>
+
+            <hr>
+            <div class="text-center">
+              <input type="submit" value="Modifier Parcelle" class="btn btn-primary btn-user col-md-4">
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/admin/vendor/jquery/jquery.min.js"></script>
+  <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/admin/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="/admin/js/demo/datatables-demo.js"></script>
+
+<!-- map script-->
+<!--<script src="/admin/js/mapshow.js"></script>-->
+<!--<script src="/admin/js/mapscript.js"></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBm1pln0MedohNSrmCASOeTF9t49xWpaEo&callback=initMap"
+    async defer></script>
+
+    <script type="text/javascript">
+        function doIt(id, designation,description,modeIrrigation,flux,username,gouvernorat){
+          $('.idZone').val(id);
+          $('.designation').val(designation);
+          $('.description').val(description);
+          $('.modeIrrigation').val(modeIrrigation);
+          $('.flux').val(flux);
+          $('.username').val(username);
+          $('.gouvernorat').val(gouvernorat);
+        }
+    </script>
+
+</body>
+
+</html>

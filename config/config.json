@@ -1,0 +1,12 @@
+{
+    "development": {
+        "MONGODB_URI": "mongodb+srv://rami:4iETFR2O3UUn7RM4@cluster0.jfwa9.mongodb.net/vidasmart?retryWrites=true&w=majority",
+        "JWT_SECRET": "SECRET#123",
+        "JWT_EXP": "1d"
+    },
+    "production": {
+        "MONGODB_URI": "mongodb+srv://rami:4iETFR2O3UUn7RM4@cluster0.jfwa9.mongodb.net/vidasmart?retryWrites=true&w=majority",
+        "JWT_SECRET": "SECRET#123",
+        "JWT_EXP": "1d"
+    }
+}
